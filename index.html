@@ -7,6 +7,33 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/tooltipster.css" />
+	<link rel="stylesheet" type="text/css" href="css/themes/tooltipster-popover.css" />
+
+	<style type="text/css">
+		.fixed {
+			position: fixed;
+		}
+
+		.fixed-top {
+			top: 20px;
+			left: 180px;
+		}
+
+		.fixed-bottom {
+			right: 20px;
+			bottom: 20px;
+		}
+
+		.fixed-middle {
+			right: 40%;
+			bottom: 40%;
+		}
+
+		.tooltipster-content p {
+			margin-bottom: 1em;
+			line-height: 1.4;
+		}
+	</style>
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.tooltipster.js"></script>
@@ -14,10 +41,44 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			 $('.tooltip').tooltipster();
+			 $('.popover').tooltipster({
+				content: "<div class='scrollcontainer'><p>The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.</p><p>My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You listen: we go in there, and that nigga Winston or anybody else is in there, you the first motherfucker to get shot. You understand?</p><p>Do you see any Teletubbies in here? Do you see a slender plastic tag clipped to my shirt with my name printed on it? Do you see a little Asian child with a blank expression on his face sitting outside on a mechanical helicopter that shakes when you put quarters in it? No? Well, that's what you see at a toy store. And you must think you're in a toy store, because you're here shopping for an infant named Jeb.</p></div>",
+				position: 'bottom',
+				interactive: true,
+				maxWidth: 380,
+				popover: true,
+				trigger: 'click',
+				interactiveTolerance: 1000,
+				theme: 'tooltipster-popover'
+			});
+			 $('.popover-short').tooltipster({
+				content: "<div class='scrollcontainer'><p>The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.</p></div>",
+				position: 'bottom',
+				interactive: true,
+				popover: true,
+				offsetY: 20,
+				theme: 'tooltipster-popover'
+			});
+
 		});
 	</script>
 </head>
 <body>
+
+	<div class="fixed fixed-top">
+		<a href="#" class="popover-short" title="Get your Google on and your ketchup out!">Short</a>
+		<a href="#" class="popover" title="Get your Google on and your ketchup out!">Overflow</a>
+	</div>
+
+	<div class="fixed fixed-bottom">
+		<a href="#" class="popover-short" title="Get your Google on and your ketchup out!">Short</a>
+		<a href="#" class="popover" title="Get your Google on and your ketchup out!">Overflow</a>
+	</div>
+
+	<div class="fixed fixed-middle">
+		<a href="#" class="popover-short" title="Get your Google on and your ketchup out!">Short</a>
+		<a href="#" class="popover" title="Get your Google on and your ketchup out!">Popover</a>
+	</div>
 
 	<section class="container tooltip" title="Parent container">
 		<a href="http://google.com" class="tooltip" title="Get your Google on">Google</a>

@@ -35,6 +35,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 			offsetX: 0,
 			offsetY: 0,
 			onlyOne: true,
+			popover: false,
 			position: 'top',
 			speed: 350,
 			timer: 0,
@@ -635,6 +636,45 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 				
 				// A function to detect if the tooltip is going off the screen vertically. If so, switch to the opposite!
 				function dontGoOffScreenY(switchTo, resetTo) {
+					if ( object.options.popover == true && (resetTo.indexOf('bottom') > -1) ) {
+						// lets measure space above and below
+						// because the trigger elements are expected to have a fixed position, we
+						// need to measure the viewport height instead of the document height, so
+						// let's do that
+						var viewportHeight = $(window).height(),
+							position = $this.parent().position(),
+							spaceAbove = position.top - offsetY,
+							spaceBelow = viewportHeight - position.top - $this.outerHeight() - offsetY,
+							space;
+
+						// only switch to position:top if ...
+						if ( spaceAbove > spaceBelow ) {
+							object.options.position = switchTo;
+							resetPosition = resetTo;
+							myTop = position.top - $this.outerHeight() - tooltipHeight - offsetY + 12;
+							space = spaceAbove;
+						} else {
+							// ... else we stick to position:below
+							object.options.position = resetPosition = resetTo;
+							space = spaceBelow;
+							myTop = position.top + $this.outerHeight() + offsetY + 12;
+						}
+
+						// in any case, we want our tooltipster to be ...
+						tooltipster.css({ 'position':'fixed' });
+
+						// ... and likewise apply overflow:scroll to our content
+						// if the tooltipHeight exceeds the available space
+						if ( space < tooltipHeight ) {
+							tooltipster.css({ 'height':space - 20 });
+							if ( spaceAbove > spaceBelow && object.options.position === switchTo ) {
+								myTop = 0;
+							}
+						}
+						return;
+
+					}
+
 					// if it goes off the top off the page
 					if(((offsetTop - $(window).scrollTop() - tooltipHeight - offsetY - 12) < 0) && (resetTo.indexOf('top') > -1)) {
 						object.options.position = switchTo;
